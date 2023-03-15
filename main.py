@@ -92,6 +92,47 @@ class StudentListWindow(Screen):
         self.table.add_widget(layout)
 
 
+class StudentNameListWindow(Screen):
+    def list_student_names(self):
+        layout = GridLayout(
+            cols=6,
+            row_force_default=True,
+            row_default_height=sp(40),
+            padding=(20, 20, 20, 20),
+            spacing=(10, 10),
+        )
+
+        columns = ["Name"]
+
+        for column in columns:
+            layout.add_widget(
+                Label(
+                    text=column,
+                    size_hint_x=None,
+                    width=sp(120),
+                    bold=True,
+                    color=(1, 1, 1, 1),
+                )
+            )
+
+        c = conn.cursor()
+        c.execute("SELECT Name FROM student_info")
+        rows = c.fetchall()
+
+        for row in rows:
+            for item in row:
+                layout.add_widget(
+                    Label(
+                        text=str(item),
+                        size_hint_x=None,
+                        width=sp(120),
+                        color=(1, 1, 1, 1),
+                    )
+                )
+
+        self.list.add_widget(layout)
+
+
 class WindowManager(ScreenManager):
     pass
 

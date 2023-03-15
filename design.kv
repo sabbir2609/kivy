@@ -3,6 +3,7 @@ WindowManager:
     StudentAddWindow:
     StudentListWindow:
     StudentDataWindow:
+    StudentNameListWindow:
 
 <HomeWindow>:
     name: 'home'
@@ -19,6 +20,12 @@ WindowManager:
             background_color: 0.67, 0.20, 0.31, 1
             on_press: 
                 root.manager.current = 'student_list'
+
+        Button:
+            text: 'List Students by Name'
+            background_color: 0.67, 0.20, 0.31, 1
+            on_press: 
+                root.manager.current = 'student_name_list'
 
 
 
@@ -138,3 +145,12 @@ WindowManager:
     GridLayout:
         cols: 1
         id: table
+
+
+<StudentNameListWindow>:
+    on_enter: root.list_student_names()
+    list: list
+    name: 'student_name_list'
+    GridLayout:
+        cols: 1
+        id: list
