@@ -1,0 +1,140 @@
+WindowManager:
+    HomeWindow:
+    StudentAddWindow:
+    StudentListWindow:
+    StudentDataWindow:
+
+<HomeWindow>:
+    name: 'home'
+    GridLayout:
+        cols:1
+        size_hint: .5,.5
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        Button:
+            text: 'Add Student'
+            background_color: 0.67, 0.20, 0.31, 1
+            on_press: root.manager.current = 'student_add'
+        Button:
+            text: 'List Students'
+            background_color: 0.67, 0.20, 0.31, 1
+            on_press: 
+                root.manager.current = 'student_list'
+
+
+
+<StudentAddWindow>:
+    display_name: name
+    id_no: id_no
+    email: email
+    phone: phone
+    address: address
+    name: 'student_add'
+    GridLayout:
+        cols:1
+
+        GridLayout:
+            rows:5
+
+            Label:
+                text: 'Name'
+
+            TextInput:
+                id: name
+
+            Label:
+                text: 'Email'
+
+            TextInput:
+                id: email
+
+            Label:
+                text: 'ID'
+            
+            TextInput:
+                id: id_no
+
+            Label:
+                text: 'Phone'
+
+            TextInput:
+                id: phone
+
+            Label:
+                text: 'Address'
+
+            TextInput:
+                id: address
+
+        GridLayout:
+            cols:1
+            size_hint: .5,.2
+
+            Button:
+                text: 'Submit'
+                background_color: 0.67, 0.20, 0.31, 1
+                on_release: 
+                    root.test_two()
+                    root.manager.current = 'student_data'
+
+
+<StudentDataWindow>:
+    name: 'student_data'
+    GridLayout:
+
+        cols:1
+
+        GridLayout:
+            rows:5
+
+            Label:
+                text: 'Name'
+
+            Label:
+                id: name
+
+            Label:
+                text: 'Email'
+
+            Label:
+                id: email
+
+            Label:
+                text: 'ID'
+            
+            Label:
+                id: id_no
+
+            Label:
+                text: 'Phone'
+
+            Label:
+                id: phone
+
+            Label:
+                text: 'Address'
+
+            Label:
+                id: address
+
+        GridLayout:
+            cols:2
+            size_hint: .5,.2
+
+            Button:
+                text: 'Console'
+                background_color: 0.67, 0.20, 0.31, 1
+                on_press: root.test_three()
+
+            Button:
+                text: 'Back'
+                background_color: 0.67, 0.20, 0.31, 1
+                on_press: root.manager.current = 'home'
+
+
+<StudentListWindow>:
+    on_enter: root.list_student()
+    table: table
+    name: 'student_list'
+    GridLayout:
+        cols: 1
+        id: table
