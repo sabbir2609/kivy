@@ -4,6 +4,7 @@ WindowManager:
     StudentListWindow:
     StudentDataWindow:
     StudentNameListWindow:
+    AttendanceReportWindow:
 
 <HomeWindow>:
     name: 'home'
@@ -26,6 +27,12 @@ WindowManager:
             background_color: 0.67, 0.20, 0.31, 1
             on_press: 
                 root.manager.current = 'student_name_list'
+
+        Button:
+            text: 'Attendance Report'
+            background_color: 0.67, 0.20, 0.31, 1
+            on_press: 
+                root.manager.current = 'attendance_report'
 
 
 
@@ -151,6 +158,29 @@ WindowManager:
     on_enter: root.list_student_names()
     list: list
     name: 'student_name_list'
+
+    ScrollView:
+        
+        GridLayout:
+            cols: 1
+            id: list
+
+<AttendanceReportWindow>:
+    on_enter: root.report()
+    list_attendance: list_attendance
+    name: 'attendance_report'
     GridLayout:
-        cols: 1
-        id: list
+        rows: 2
+        GridLayout:
+            cols: 1
+            size_hint : 1, .1
+            GridLayout:
+                cols: 2
+                Label:
+                    text: 'Student Name'
+                Label:
+                    text: 'Attendance'
+        GridLayout:
+            cols: 1
+            id: list_attendance
+    
