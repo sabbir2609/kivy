@@ -99,7 +99,7 @@ class StudentNameListWindow(Screen):
         c = conn.cursor()
         c.execute(
             "INSERT INTO attend (date, student, presence) VALUES (?, ?, ?)",
-            (datetime.now(), int(instance.text), True),
+            (datetime.now().date(), int(instance.text), True),
         )
         conn.commit()
 
@@ -148,39 +148,48 @@ class StudentNameListWindow(Screen):
 class AttendanceReportWindow(Screen):
     def report(self):
         layout = GridLayout(
-            cols=3,
+            cols=4,
             row_force_default=True,
             row_default_height=sp(40),
             padding=(20, 20, 20, 20),
             spacing=(10, 10),
         )
 
-        columns = ["ID", "Name", "Phone", "Status"]
+        columns = ["SL", "ID", "Name", "Status"]
 
         for column in columns:
             layout.add_widget(
                 Label(
-                    text=column,
-                    size_hint_x=None,
-                    # width=sp(120),
+                    text=str(column),
+                    width=sp(120),
                     bold=True,
                     color=(1, 1, 1, 1),
                 )
             )
 
-        c = conn.cursor()
         c.execute(
-            "SELECT student_info.Name, student_info.mobile_number, attend.presence FROM student_info INNER JOIN attend ON student_info.id = attend.student"
+            "SELECT student_info.id, student_info.Name, attend.presence FROM attend INNER JOIN student_info ON student_info.pk = attend.student WHERE attend.date = '{0}'".format(
+                datetime.strptime(self.search.text, "%Y-%m-%d").date()
+            )
         )
+
         rows = c.fetchall()
 
-        for row in rows:
+        for sl, row in enumerate(rows):
+            layout.add_widget(
+                Label(
+                    text=str(sl),
+                    size_hint_x=None,
+                    width=sp(120),
+                    color=(1, 1, 1, 1),
+                )
+            )
             for item in row:
                 layout.add_widget(
                     Label(
                         text=str(item),
                         size_hint_x=None,
-                        # width=sp(120),
+                        width=sp(120),
                         color=(1, 1, 1, 1),
                     )
                 )

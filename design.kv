@@ -166,7 +166,7 @@ WindowManager:
             id: list
 
 <AttendanceReportWindow>:
-    on_enter: root.report()
+    search: search        
     list_attendance: list_attendance
     name: 'attendance_report'
     GridLayout:
@@ -175,12 +175,19 @@ WindowManager:
             cols: 1
             size_hint : 1, .1
             GridLayout:
-                cols: 2
-                Label:
-                    text: 'Student Name'
-                Label:
-                    text: 'Attendance'
+                cols: 3
+                TextInput:
+                    id: search
+                    hint_text: 'Search'
+                Button:
+                    text: 'Search'
+                    on_press: root.report()
+                Button:
+                    text: 'Main Menu'
+                    on_press: root.manager.current = 'home'
         GridLayout:
             cols: 1
             id: list_attendance
+
+
     
